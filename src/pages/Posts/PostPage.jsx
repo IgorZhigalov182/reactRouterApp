@@ -1,7 +1,7 @@
 import React from 'react';
 // Librares
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 // Store
 import { loadingStatusSelector, postSelector } from '../../store/postsSlice';
 // Components
@@ -16,6 +16,11 @@ const PostPage = () => {
 
   const loadingStatus = useSelector(loadingStatusSelector());
   const post = useSelector(postSelector(postId));
+
+  // Переадрессация на posts
+  if (loadingStatus !== 'pending' && loadingStatus !== 'idle' && !post) {
+    return <Navigate to="/posts" />;
+  }
 
   return (
     <>
