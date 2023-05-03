@@ -13,6 +13,9 @@ import PostsListPage from './pages/Posts/PostsListPage';
 import PostPage from './pages/Posts/PostPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SigupPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import { useSelector } from 'react-redux';
+import { isLoggedInSelector } from './store/authSlice';
 
 function App() {
   return (
@@ -26,10 +29,14 @@ function App() {
           <Route path={'signup'} element={<SignUpPage />} />
           <Route path="*" element={<Navigate to="/auth/signUp" />} />
         </Route>
-        <Route path="/posts" element={<PostsLayout />}>
+        {/* <ProtectedRoute path="posts" element={<PostsLayout />}> */}
+        <Route
+          path="posts"
+          element={<ProtectedRoute redirectTo={'/auth/login'} element={<PostsLayout />} />}>
           <Route index element={<PostsListPage />} />
           <Route path=":postId" element={<PostPage />} />
         </Route>
+        {/* </ProtectedRoute> */}
         <Route path="*" element={<Navigate to="/posts" />} />
       </Routes>
 

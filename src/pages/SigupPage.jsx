@@ -14,6 +14,7 @@ import SpinLoading from '../components/SpinLoader';
 import StyledNavLink from '../components/StyledNavLink';
 //Icons
 import { UserIcon, KeyIcon, MailIcon } from '@heroicons/react/outline';
+import { useNavigate } from 'react-router-dom';
 
 const signUpSchema = Yup.object({
   username: Yup.string().min(3, 'Name must contain at least 3 symbols').required('Required'),
@@ -31,6 +32,7 @@ const SignUpPage = () => {
   const [loading, setLoading] = useState(false);
   const [successful, setSuccessful] = useState(false);
   const { message } = useSelector((state) => state.message);
+  const navigate = useNavigate();
   // const history = useHistory();
   const dispatch = useDispatch();
 
